@@ -3,9 +3,7 @@ include("db.php");
 session_start();
 
 $marcas ="SELECT id_marca, nombre FROM marcas";
-$result = mysqli_query($conn, $marcas);
-
-
+$result_marcas = mysqli_query($conn, $marcas);
 ?>
 
 <?php 
@@ -32,26 +30,77 @@ include("header.php")
          }
          ?>
          <div class="car card-body">
-            <form action="GuardaLinea.php" method="POST">
+            <form action="GuardaVehiculo.php" method="POST">
                 <div class="form-group">
                     <h5>Registro de Vehiculos:</h5>
                 </div>
                 <br><!-- Este es un salto de linea -->
-                <div class="form-group">
-                    <input type="text" name="marca"  class="form-control" placeholder="Ingrese la Marca del Vehiculo"></text>
-                </div>
-                <br>
                 <div>
-                <label for="Marcas" class="form-control">Seleccione Marca:</label><br>
-                    <select name="id_marca" id="marcas" class="form-control">
-                    <option value=""></option>
-                    <?php while($row = $result->fetch_assoc()){ ?>
-                        <option value="<?php echo $row['id_marca']; ?>"><?php echo $row['nombre']; ?></option>
-                    <?php } ?>
+                    
                     </select>
+                        <label for="">Marca</label>
+                        <select name="id_marca" id="marcas" class="form-control">
+                        <option value=""></option>
+                        <?php while($row = $result_marcas->fetch_assoc()){ ?>
+                            <option value="<?php echo $row['id_marca']; ?>"><?php echo $row['nombre']; ?></option>
+                        <?php } ?>
+                    </select>
+                    
+                    <br>
+
+                    <?php 
+                        $modelos ="SELECT id_modelo, nombre FROM modelo";
+                        $result_modelos = mysqli_query($conn, $modelos);
+                    ?>
+                    </select>
+                        <label for="">Modelo</label>
+                        <select name="id_modelo" id="modelo" class="form-control">
+                        <option value=""></option>
+                        <?php while($row = $result_modelos->fetch_assoc()){ ?>
+                            <option value="<?php echo $row['id_modelo']; ?>"><?php echo $row['nombre']; ?></option>
+                        <?php } ?>
+                    </select>
+
+                    <br>
+
+                    <?php
+                        $lineas ="SELECT id_linea, nombre FROM linea";
+                        $result_lineas = mysqli_query($conn, $lineas);
+                    ?>
+                    </select>
+                        <label for="">Linea</label>
+                        <select name="id_linea" id="linea" class="form-control">
+                        <option value=""></option>
+                        <?php while($row = $result_lineas->fetch_assoc()){ ?>
+                            <option value="<?php echo $row['id_linea']; ?>"><?php echo $row['nombre']; ?></option>
+                        <?php } ?>
+                    </select>
+
+                    <br>
+
+                    <?php
+                        $tipos ="SELECT id_tipo, nombre FROM tipo_vehiculo";
+                        $result_tipos = mysqli_query($conn, $tipos);
+                    ?>
+                    </select>
+                        <label for="">Tipo</label>
+                        <select name="id_tipo" id="tipo" class="form-control">
+                        <option value=""></option>
+                        <?php while($row = $result_tipos->fetch_assoc()){ ?>
+                            <option value="<?php echo $row['id_tipo']; ?>"><?php echo $row['nombre']; ?></option>
+                        <?php } ?>
+                    </select>
+
+                    <br>
+
+                    <label>Matricula:</label>
+                    <input type="text" name="matricula"  class="form-control" placeholder="Ingrese - Matricula / Placa"></text>
+                    <br>
+
+
                 </div>
                 <br>
-                <input type="submit" class="btn btn-info btn-block" name="guardaLinea" value="Guardar">
+                <input type="submit" class="btn btn-info btn-block" name="GuardaVehiculo" value="Guardar">
                  <input type="submit" class="btn btn-danger btn-block"  value="Cancelar"> 
             </form>
 
@@ -105,8 +154,8 @@ include("header.php")
                             <td><?php echo $row['fecha']?></td>
                                                 
                             <td>
-                                <a href="updateLineas.php?id_linea=<?php echo $row['id']; ?>" class="btn btn-success">Actualizar</a>
-                                <a href="deleteLineas.php?id_linea=<?php echo $row['id']; ?>" class="btn btn-danger">Eliminar</a>
+                                <a href="updateLineas.php?id_vehiculo=<?php echo $row['id']; ?>" class="btn btn-success">Actualizar</a>
+                                <a href="deleteVehiculos.php?id=<?php echo $row['id']; ?>" class="btn btn-danger">Baja</a>
                             </td>
 
                         </tr>

@@ -33,7 +33,7 @@ include("header.php")
 
         <h1>Control de usuarios</h1>
         <!-- Botón para agregar usuarios -->
-        <a href="create.php" class="btn btn-primary mb-3">Agregar usuario</a>
+        <a href="create_usuarios.php" class="btn btn-primary mb-3">Agregar usuario</a>
         
         <!-- Tabla para mostrar los usuarios -->
         <table class="table table-bordered">

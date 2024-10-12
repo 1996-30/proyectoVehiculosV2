@@ -84,6 +84,7 @@ include("header.php")
                             <td>
                                 <a href="updateClientes.php?id_cliente=<?php echo $row['id_cliente']; ?>" class="btn btn-success">Actualizar</a>
                                 <a href="deleteClientes.php?id_cliente=<?php echo $row['id_cliente']; ?>" class="btn btn-danger">Eliminar</a>
+                                <a href="formRentas.php?id_cliente=<?php echo $row['id_cliente']; ?>" class="btn btn-info">Iniciar Reserva</a>
                             </td>
 
                         </tr>

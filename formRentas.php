@@ -1,6 +1,38 @@
 <?php 
 include("db.php");
 session_start();
+
+$vehiculos = "SELECT id_vehiculo, CONCAT(marcas.nombre,' - ',linea.nombre,' - ', modelo.nombre,' - ', matricula) as nombre 
+              FROM vehiculos 
+              INNER JOIN marcas ON vehiculos.id_marca=marcas.id_marca
+              INNER JOIN linea ON vehiculos.id_linea=linea.id_linea
+              INNER JOIN modelo ON vehiculos.id_modelo=modelo.id_modelo" ;
+$respuestaVehiculos = mysqli_query($conn, $vehiculos);
+
+if(isset($_GET['id_cliente'])){
+    $id = $_GET['id_cliente'];
+    $query = "SELECT * FROM cliente WHERE id_cliente = $id";
+    $result = mysqli_query($conn, $query);
+
+    if(mysqli_num_rows($result)==1)
+    {
+        $row = mysqli_fetch_array($result);
+        $nombre =$row['nombre'];
+        $dpi =$row['DPI'];
+        $nit =$row['NIT'];
+        $email =$row['email'];
+    }
+}
+
+if(isset($_POST['guardar'])){
+    $id = $_GET['id_cliente'];
+    $nombre = $_POST['nombre'];
+    $dpi = $_POST['DPI'];
+    $nit = $_POST['NIT'];
+    $email = $_POST['email'];
+
+ 
+}
 ?>
 
 <?php 
@@ -9,7 +41,7 @@ include("header.php")
 
  <div class="container p-4">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
         <!-- contenido de la columna 4 formulario -->
         
         <!-- alert conf -->
@@ -27,58 +59,79 @@ include("header.php")
          }
          ?>
          <div class="car card-body">
-            <form action="GuardaMarca.php" method="POST">
+         <form action="formRentas.php?id_cliente=<?php echo $_GET['id_cliente'] ;  ?>" method="POST">
+                <h2>Cliente: </h1>
                 <div class="form-group">
-                    <h5>Ingrese sus datos:</h5>
-                </div>
-                <br><!-- Este es un salto de linea -->
-                <div class="form-group">
-                    <input type="text" name="nit"  class="form-control" placeholder="Ingrese NIT: "></text>
-                </div>
-                 <br>
-                 <div>
-                    <input type="text" name="nombre"  class="form-control" placeholder="Nombre "></text>
+                    <label for="">Nombre del Cliente</label>
+                    <input type="text" name="nombre" class="form-control" placeholder=" Nombre Cliente" value="<?php echo $nombre ?>">
                     <br>
-                    <input type="text" name="nombre"  class="form-control" placeholder="Nombre "></text>
+                    <label for="">DPI</label>
+                    <input type="text" name="DPI" class="form-control" placeholder="DPI" value="<?php echo $dpi ?>">
+                    <br>
+                    <label for="">NIT</label>
+                    <input type="text" name="NIT" class="form-control" placeholder=" NIT" value="<?php echo $nit ?>">
+                    <br>
+                    <label for="">Correo Electrónico</label>
+                    <input type="email" name="email" class="form-control" placeholder="email" value="<?php echo $email ?>">
+                    <br>
+                    <div>
+                    <label for="Vehiculos" class="form-control">Seleccione Vehiculo:</label><br>
+                    <select name="id_vehiculo" id="vehiculos" class="form-control">
+                    <option value=""></option>
+                    <?php while($row = $respuestaVehiculos->fetch_assoc()){ ?>
+                        <option value="<?php echo $row['id_vehiculo']; ?>"><?php echo $row["nombre"]; ?></option>
+                    <?php } ?>
+                    </select>
+                    <br>
+                    <label for="">Estado del Automovil</label>
+                    <input type="email" name="email" class="form-control" placeholder="Estatus" value="">
                     <br>
 
-                 </div>
-                <input type="submit" class="btn btn-info btn-block" name="guardaMarca" value="Guardar">
-                 <input type="submit" class="btn btn-danger btn-block"  value="Cancelar"> 
+                </div>
+                <br>
+
+
+                </div>
+                <br>
+               <button class="btn btn-info" name="guardar">Guardar Reserva</button>
             </form>
 
          </div>
         </div>
            <!-- contenido de la columna 8 tabla de datois -->
-        <div class="col-md-8">
+        <div class="col-md-9   ">
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                <th>Codigo</th> 
-                <th>Marca Vehiculos</th>
+               
+                <th>Nombre</th>
+                <th>Vehiculo</th>
+                <th>E.R</th>
+                <th>Fecha Renta</th>
                 <th>Acciones</th>
+
 
                 </tr>
                 </thead>
                 <tbody>
-                    <?php
-
-                        $query = "SELECT * FROM marcas";
-                        $result_task = mysqli_query($conn,$query);
-
-                        while($row = mysqli_fetch_array($result_task))  {               ?>
+                  
                         <tr>
-                            <td><?php echo $row['id_marca']?></td>
-                            <td><?php echo $row['nombre']?></td>
+                           
+                            <td>Heber</td>
+                            <td>Toyota-Corolla-2010</td>
+                            <td>A</td>
+                            <td>2024-10-10</td>
+                            
+                           
                             
                             <td>
-                                <a href="updateMarcas.php?id_marca=<?php echo $row['id_marca']; ?>" class="btn btn-success">Actualizar</a>
-                                <a href="deleteMarcas.php?id_marca=<?php echo $row['id_marca']; ?>" class="btn btn-danger">Eliminar</a>
+                                <a href="" class="btn btn-success">Actualizar</a>
+                                <a href="" class="btn btn-danger">Estado Reserva</a>
                             </td>
 
                         </tr>
 
-                        <?php }?>
+                       
 
             </tbody>
             </table>

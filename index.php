@@ -57,7 +57,7 @@ session_start(); // Asegúrate de que esto esté al inicio del archivo
                   <div class="pt-1 mb-4">
                     <button class="btn btn-dark btn-lg btn-block" type="submit">Ingresar</button>
                   </div>
-                  <p class="mb-5 pb-lg-2" style="color: #393f81;">¿No tienes una cuenta? <a href="create.php" style="color: #393f81;">Registrate Aqui</a></p>
+                  <p class="mb-5 pb-lg-2" style="color: white;">¿No tienes una cuenta? <a href="formCreateUserCL.php" style="color: silver;">Registrate Aqui</a></p>
                  </form>
                 
                 <!-- Redes Sociales -->

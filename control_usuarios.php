@@ -1,10 +1,7 @@
 <?php
 session_start();
 include("db.php");
-?>
-
-<?php 
-include("header.php")
+include("header.php");
 ?>
 
 <!DOCTYPE html>
@@ -18,8 +15,6 @@ include("header.php")
 </head>
 <body>
     <div class="container mt-5">
-      
-
         <!-- Alertas -->
         <?php if(isset($_SESSION['message'])) { ?>
             <div class="alert alert-<?= htmlspecialchars($_SESSION['message_type']) ?> alert-dismissible fade show" role="alert">
@@ -41,6 +36,11 @@ include("header.php")
                     <th scope="col">Id</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Correo</th>
+                    <th scope="col">DPI</th>
+                    <th scope="col">NIT</th>
+                    <th scope="col">Teléfono</th>
+                    <th scope="col">Dirección</th>
+                    <th scope="col">Status</th>
                     <th scope="col">Fecha Creación</th>
                     <th scope="col">Rol</th>
                     <th scope="col">Acciones</th>
@@ -68,17 +68,22 @@ include("header.php")
                         <td><?= htmlspecialchars($row['id_usuario']); ?></td>
                         <td><?= htmlspecialchars($row['nombre']); ?></td>
                         <td><?= htmlspecialchars($row['email']); ?></td>
+                        <td><?= htmlspecialchars($row['dpi']); ?></td>
+                        <td><?= htmlspecialchars($row['nit']); ?></td>
+                        <td><?= htmlspecialchars($row['telefono']); ?></td>
+                        <td><?= htmlspecialchars($row['direccion']); ?></td>
+                        <td><?= htmlspecialchars($row['status']); ?></td>
                         <td><?= htmlspecialchars($row['fecha_creacion']); ?></td>
                         <td><?= htmlspecialchars($row['rol_nombre']); ?></td>
                         <td>
-                            <a href="update.php?id=<?= $row['id_usuario']; ?>" class="btn btn-warning">Actualizar</a>
-                            <a href="deleteClientes.php?id=<?= $row['id_usuario']; ?>" class="btn btn-danger">Eliminar</a>
+                            <a href="update_usuarios.php?id=<?= $row['id_usuario']; ?>" class="btn btn-warning">Actualizar</a>
+                            <a href="delete_usuarios.php?id=<?= $row['id_usuario']; ?>" class="btn btn-danger">Eliminar</a>
                         </td>
                     </tr>
                 <?php 
                     }
                 } else {
-                    echo "<tr><td colspan='6'>Error al obtener usuarios: " . $conn->error . "</td></tr>";
+                    echo "<tr><td colspan='11'>Error al obtener usuarios: " . $conn->error . "</td></tr>";
                 }
                 ?>
             </tbody>

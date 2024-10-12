@@ -33,11 +33,15 @@ if (isset($_POST['submit'])) {
     $tipo = $_POST['id_rol'];
     $password = $_POST['password'];
     $email = $_POST['email'];
-    $date = $_POST['fecha_creacion'];
+    $dpi = $_POST['dpi'];
+    $nit = $_POST['nit'];
+    $telefono = $_POST['telefono'];
+    $direccion = $_POST['direccion'];
+    $status = $_POST['status'];
 
-    // consulta
-    $stmt = $conn->prepare("UPDATE usuarios SET nombre=?, id_rol=?, contraseña=?, email=?, fecha_creacion=? WHERE id_usuario=?");
-    $stmt->bind_param("sssssi", $name, $tipo, $password, $email, $date, $id);
+    // Consulta para actualizar el usuario
+    $stmt = $conn->prepare("UPDATE usuarios SET nombre=?, id_rol=?, contraseña=?, email=?, dpi=?, nit=?, telefono=?, direccion=?, status=? WHERE id_usuario=?");
+    $stmt->bind_param("ssssssissi", $name, $tipo, $password, $email, $dpi, $nit, $telefono, $direccion, $status, $id);
 
     if ($stmt->execute()) {
         $_SESSION['message'] = 'Registro actualizado con éxito';
@@ -62,7 +66,7 @@ if (isset($_POST['submit'])) {
 <body>
     <div class="container mt-5">
         <h1>Actualizar Usuario</h1>
-        <form action="update.php?id=<?php echo $id; ?>" method="POST">
+        <form action="update_usuarios.php?id=<?php echo $id; ?>" method="POST">
             <div class="mb-3">
                 <label for="name">Nombre</label>
                 <input type="text" name="name" class="form-control" value="<?php echo htmlspecialchars($usuario['nombre']); ?>" required>
@@ -77,8 +81,24 @@ if (isset($_POST['submit'])) {
                 <input type="email" name="email" class="form-control" value="<?php echo htmlspecialchars($usuario['email']); ?>" required>
             </div>
             <div class="mb-3">
-                <label for="fecha_creacion">Fecha de creación</label>
-                <input type="date" name="fecha_creacion" class="form-control" value="<?php echo htmlspecialchars($usuario['fecha_creacion']); ?>" required>
+                <label for="dpi">DPI</label>
+                <input type="text" name="dpi" class="form-control" value="<?php echo htmlspecialchars($usuario['dpi']); ?>" required>
+            </div>
+            <div class="mb-3">
+                <label for="nit">NIT</label>
+                <input type="text" name="nit" class="form-control" value="<?php echo htmlspecialchars($usuario['nit']); ?>" required>
+            </div>
+            <div class="mb-3">
+                <label for="telefono">Teléfono</label>
+                <input type="text" name="telefono" class="form-control" value="<?php echo htmlspecialchars($usuario['telefono']); ?>" required>
+            </div>
+            <div class="mb-3">
+                <label for="direccion">Dirección</label>
+                <input type="text" name="direccion" class="form-control" value="<?php echo htmlspecialchars($usuario['direccion']); ?>" required>
+            </div>
+            <div class="mb-3">
+                <label for="status">Status</label>
+                <input type="text" name="status" class="form-control" value="<?php echo htmlspecialchars($usuario['status']); ?>" required>
             </div>
             <div class="mb-3">
                 <label for="id_rol">Rol</label>

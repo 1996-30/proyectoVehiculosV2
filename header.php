@@ -55,7 +55,7 @@
           </ul>
         </li>
       </ul>
-      <a href="salir.php"><img class="close" src="img/salir.png" alt="Salir del sistema" title="Salir"></a>
+      <a href="cerrar_sesion.php"><img class="close" src="img/salir.png" alt="Salir del sistema" title="Salir"></a>
     </div>
   </div>
 </nav>

@@ -10,9 +10,9 @@ $result_marcas = mysqli_query($conn, $marcas);
 include("header.php")
 ?>
 
- <div class="container p-4">
+ <div class="container p-1">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-2">
         <!-- contenido de la columna 4 formulario -->
         
         <!-- alert conf -->
@@ -94,7 +94,7 @@ include("header.php")
                     <br>
 
                     <label>Matricula:</label>
-                    <input type="text" name="matricula"  class="form-control" placeholder="Ingrese - Matricula / Placa"></text>
+                    <input type="text" name="matricula"  class="form-control" placeholder="Matricula / Placa"></text>
                     <br>
 
 
@@ -106,8 +106,8 @@ include("header.php")
 
          </div>
         </div>
-           <!-- contenido de la columna 8 tabla de datois -->
-        <div class="col-md-8">
+           <!-- contenido de la columna 11 tabla de datois -->
+        <div class="col-md-10">
             <table class="table table-bordered">
                 <thead>
                 <tr>
@@ -119,7 +119,8 @@ include("header.php")
                 <th>Matricula</th>
                 <th>Status</th>
                 <th>Fecha Registro</th>
-                <th>Acciones</th>
+                <th>Usuario</th>
+                <th class="text-center">Acciones</th>
 
                 </tr>
                 </thead>
@@ -133,12 +134,14 @@ include("header.php")
                                     ti.nombre AS tipo,
                                     v.matricula AS matricula,
                                     es_v.nombre AS status,
-                                    fecha_creacion AS fecha
+                                    v.fecha_creacion AS fecha,
+                                    u.nombre AS usuario
                                     FROM vehiculos AS v LEFT JOIN marcas AS mar ON(v.id_marca=mar.id_marca)
                                     LEFT JOIN modelo AS mo ON(v.id_modelo=mo.id_modelo)
                                     LEFT JOIN linea AS li ON(v.id_linea=li.id_linea)
                                     LEFT JOIN tipo_vehiculo AS ti ON(v.id_linea=ti.id_tipo)
-                                    LEFT JOIN status_v AS es_v ON(v.status=es_v.status)";
+                                    LEFT JOIN status_v AS es_v ON(v.status=es_v.status)
+                                    LEFT JOIN usuarios AS u ON(v.id_usuario=u.id_usuario)";
 
                         $result_task = mysqli_query($conn,$query);
 
@@ -152,6 +155,7 @@ include("header.php")
                             <td><?php echo $row['matricula']?></td>
                             <td><?php echo $row['status']?></td>
                             <td><?php echo $row['fecha']?></td>
+                            <td><?php echo $row['usuario']?></td>
                                                 
                             <td>
                                 <a href="updateLineas.php?id_vehiculo=<?php echo $row['id']; ?>" class="btn btn-success">Actualizar</a>

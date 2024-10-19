@@ -2,9 +2,12 @@
 session_start();
 include ("db.php");
 
+
+
+
 if(isset($_POST['guardaMarca'])){
    
-    $nombre = $_POST['nombre'];
+    $nombre = $_POST['marca'];
     
 
     $query = "INSERT INTO marcas(nombre)

@@ -1,6 +1,7 @@
 <?php 
-include("db.php");
 session_start();
+include("db.php");
+
 ?>
 
 <?php 
@@ -23,7 +24,7 @@ include("header.php")
 
             
         <?php 
-        session_unset();
+        
          }
          ?>
          <div class="car card-body">

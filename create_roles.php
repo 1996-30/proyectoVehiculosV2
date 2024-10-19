@@ -1,7 +1,14 @@
 <?php
-include("db.php");
 session_start();
+include("db.php");
+
 include("header.php");
+
+$id = $_SESSION['id_usuario'] ;
+$nombreu = $_SESSION['usuario'];
+$tipo_user = $_SESSION['id_rol'] ;
+
+$nombreu = mb_convert_case($nombreu, MB_CASE_UPPER, "UTF-8");
 
 if (isset($_POST['submit'])) {
     // Validar y sanitizar la entrada

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('bd.php');
+include('db.php');
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 

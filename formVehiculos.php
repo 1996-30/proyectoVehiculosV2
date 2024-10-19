@@ -1,6 +1,22 @@
 <?php 
-include("db.php");
 session_start();
+include("db.php");
+
+if(!isset($_SESSION['id_usuario'])){
+    header("Location: inicio.php");
+}  
+
+$id = $_SESSION['id_usuario'] ;
+$nombreu = $_SESSION['usuario'];
+$tipo_user = $_SESSION['id_rol'] ;
+$nombreu = mb_convert_case($nombreu, MB_CASE_UPPER, "UTF-8");
+ $correo =  $_SESSION['email'] ;
+ $dpi = $_SESSION['dpi'] ;
+ $nit = $_SESSION['nit'] ;
+ $telefono = $_SESSION['telefono'] ;
+ $direccion = $_SESSION['direccion'];
+
+
 
 $marcas ="SELECT id_marca, nombre FROM marcas";
 $result_marcas = mysqli_query($conn, $marcas);
@@ -26,7 +42,7 @@ include("header.php")
 
             
         <?php 
-        session_unset();
+       
          }
          ?>
          <div class="car card-body">
@@ -159,7 +175,10 @@ include("header.php")
                                                 
                             <td>
                                 <a href="updateLineas.php?id_vehiculo=<?php echo $row['id']; ?>" class="btn btn-success">Actualizar</a>
+                                <?php if(!$tipo_user==1){?>
                                 <a href="deleteVehiculos.php?id=<?php echo $row['id']; ?>" class="btn btn-danger">Baja</a>
+                                <?php }?>
+                                <a href="formRentas.php" class="btn btn-info">Inicia Reserva</a>
                             </td>
 
                         </tr>

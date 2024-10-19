@@ -23,20 +23,20 @@ include("header.php")
 
             
         <?php 
-        session_unset();
+       
          }
          ?>
          <div class="car card-body">
-            <form action="GuardaMarca.php" method="POST">
+            <form action="GuardaEstatus.php" method="POST">
                 <div class="form-group">
-                    <h5>Registro Estatus de Vehiculos:</h5>
+                    <h5>Registro Estatus Estado de Reservas:</h5>
                 </div>
                 <br><!-- Este es un salto de linea -->
                 <div class="form-group">
-                    <input type="text" name="nombre"  class="form-control" placeholder="Ingrese Marca"></text>
+                    <input type="text" name="nombre"  class="form-control" placeholder="Ingrese Estatus"></text>
                 </div>
                 <br>
-                <input type="submit" class="btn btn-info btn-block" name="guardaMarca" value="Guardar">
+                <input type="submit" class="btn btn-info btn-block" name="guardaEstatus" value="Guardar">
                  <input type="submit" class="btn btn-danger btn-block"  value="Cancelar"> 
             </form>
 
@@ -48,7 +48,7 @@ include("header.php")
                 <thead>
                 <tr>
                 <th>Codigo</th> 
-                <th>Marca Vehiculos</th>
+                <th>Estatus Reservacion</th>
                 <th>Acciones</th>
 
                 </tr>
@@ -56,18 +56,17 @@ include("header.php")
                 <tbody>
                     <?php
 
-                        $query = "SELECT * FROM marcas";
-                        $result_task = mysqli_query($conn,$query);
+                        $query = "SELECT status, nombre FROM status_r";
+                        $resultadoEstatus = mysqli_query($conn,$query);
 
-                        while($row = mysqli_fetch_array($result_task))  {               ?>
+                        while($row = mysqli_fetch_array($resultadoEstatus))  {               ?>
                         <tr>
-                            <td><?php echo $row['id_marca']?></td>
+                            <td><?php echo $row['status']?></td>
                             <td><?php echo $row['nombre']?></td>
                             
                             <td>
-                                <a href="updateMarcas.php?id_marca=<?php echo $row['id_marca']; ?>" class="btn btn-success">Actualizar</a>
-                                <a href="deleteMarcas.php?id_marca=<?php echo $row['id_marca']; ?>" class="btn btn-danger">Eliminar</a>
-                            </td>
+                            <a href="updateEstatus.php?status=<?php echo $row['status']; ?>" class="btn btn-success">Actualizar</a>
+                            <a href="deleteEstatus.php?status=<?php echo $row['status']; ?>" class="btn btn-danger">Eliminar</a>
 
                         </tr>
 

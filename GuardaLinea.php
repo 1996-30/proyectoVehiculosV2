@@ -2,6 +2,9 @@
 session_start();
 include ("db.php");
 
+
+
+
 if(isset($_POST['guardaLinea'])){
    
     $nombre = $_POST['nombre'];

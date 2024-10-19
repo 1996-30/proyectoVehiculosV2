@@ -28,7 +28,7 @@ include("header.php")
 
             
         <?php 
-        session_unset();
+      
          }
          ?>
          <div class="car card-body">

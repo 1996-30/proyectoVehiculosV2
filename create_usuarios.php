@@ -1,7 +1,6 @@
 <?php
 include("db.php");
-session_start();
-include("header.php");
+
 
 // Consulta para obtener los roles
 $queryRoles = "SELECT * FROM roles"; 
@@ -15,18 +14,24 @@ if ($resultRoles->num_rows > 0) {
 
 if (isset($_POST['submit'])) {
     $name = $_POST['name'];
-    $rol_id = $_POST['rol']; 
+    $rol_id = intval($_POST['rol']); // Se obtiene el rol del formulario
     $password = $_POST['password'];
     $email = $_POST['email'];
-    $date = $_POST['date'];
+    $dpi = intval($_POST['dpi']);
+    $nit = intval($_POST['nit']);
+    $telefono = intval($_POST['telefono']);
+    $direccion = $_POST['direccion'];
+    $status = 1; 
 
-    $stmt = $conn->prepare("INSERT INTO usuarios (nombre, id_rol, contraseña, email, fecha_creacion) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssss", $name, $rol_id, $password, $email, $date);
+    $stmt = $conn->prepare("INSERT INTO usuarios (nombre, id_rol, contraseña, email, dpi, nit, telefono, direccion, status, fecha_creacion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())");
+
+    $stmt->bind_param("siissiiis", $name, $rol_id, $password, $email, $dpi, $nit, $telefono, $direccion, $status);
+    
 
     if ($stmt->execute()) {
         $_SESSION['message'] = 'El usuario fue agregado con éxito';
         $_SESSION['message_type'] = 'success';
-        header("Location: control_usuarios.php");
+        header("Location: index.php");
         exit; 
     } else {
         echo "Error de conexión: " . $stmt->error; 
@@ -62,13 +67,24 @@ if (isset($_POST['submit'])) {
                 <input type="email" name="email" class="form-control" required>
             </div>
             <div class="mb-3">
-                <label for="date">Fecha de creación</label>
-                <input type="date" name="date" class="form-control" required>
+                <label for="dpi">DPI</label>
+                <input type="number" name="dpi" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="nit">NIT</label>
+                <input type="number" name="nit" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="telefono">Teléfono</label>
+                <input type="number" name="telefono" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="direccion">Dirección</label>
+                <input type="text" name="direccion" class="form-control" required>
             </div>
             <div class="mb-3">
                 <label for="rol">Rol</label> 
                 <select name="rol" class="form-control" required>
-                    <option value="" disabled selected>Selecciona un rol</option>
                     <?php foreach ($roles as $rol): ?> 
                         <option value="<?php echo $rol['id_rol']; ?>"> 
                             <?php echo htmlspecialchars($rol['nombre']); ?>

@@ -3,6 +3,9 @@ include("db.php");
 session_start();
 
 
+
+
+
 if(isset($_GET['id_marca'])){
     $id = $_GET['id_marca'];
 
